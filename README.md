@@ -10,9 +10,10 @@ installs one embeddable widget that runs the right AI agent for the job.
 
 | File | Description |
 |---|---|
-| [`Crecy_AI_Master_Product_and_MVP_Plan.pdf`](./Crecy_AI_Master_Product_and_MVP_Plan.pdf) | Master product, MVP, architecture, schema & widget integration plan (v1.0). |
-| [`ANALYSIS.md`](./ANALYSIS.md) | Independent review & scorecard of the plan, benchmarked against the 2026 market. **Verdict: 8.5/10.** |
-| [`PATH_TO_10.md`](./PATH_TO_10.md) | Concrete, build-ready upgrades that take the plan from 8.5 to 10/10 (pricing, retrieval/RAG, AI evals, GTM). |
+| [`CRECY_AI_MASTER_PLAN_v1.1.md`](./CRECY_AI_MASTER_PLAN_v1.1.md) | **The build-of-record.** Full master plan with every upgrade folded in as defined decisions — retrieval/RAG pipeline, unit economics, eval harness, lead scoring, notifications, compliance, and go-to-market. |
+| [`Crecy_AI_Master_Product_and_MVP_Plan.pdf`](./Crecy_AI_Master_Product_and_MVP_Plan.pdf) | Original v1.0 plan (source document). |
+| [`ANALYSIS.md`](./ANALYSIS.md) | Independent review & scorecard of v1.0, benchmarked against the 2026 market. **Verdict: 8.5/10.** |
+| [`PATH_TO_10.md`](./PATH_TO_10.md) | The upgrades that took v1.0 → v1.1, with rationale and sources (pricing, retrieval/RAG, AI evals, GTM). |
 
 ## The plan in one paragraph
 
@@ -23,5 +24,6 @@ CRM dashboard, and protected by usage-based subscriptions. Three more agents
 public-key + domain-validated widget APIs, usage metering from day one, and a
 5–10 business pilot.
 
-See [`ANALYSIS.md`](./ANALYSIS.md) for the full review and the unit-economics math, and
-[`PATH_TO_10.md`](./PATH_TO_10.md) for the concrete upgrades that take it to 10/10.
+Start with [`CRECY_AI_MASTER_PLAN_v1.1.md`](./CRECY_AI_MASTER_PLAN_v1.1.md) — the definitive,
+build-ready spec. For the reasoning behind it, see [`ANALYSIS.md`](./ANALYSIS.md) (review of v1.0)
+and [`PATH_TO_10.md`](./PATH_TO_10.md) (the upgrades, with sources).
