@@ -12,6 +12,7 @@ installs one embeddable widget that runs the right AI agent for the job.
 |---|---|
 | [`Crecy_AI_Master_Product_and_MVP_Plan.pdf`](./Crecy_AI_Master_Product_and_MVP_Plan.pdf) | Master product, MVP, architecture, schema & widget integration plan (v1.0). |
 | [`ANALYSIS.md`](./ANALYSIS.md) | Independent review & scorecard of the plan, benchmarked against the 2026 market. **Verdict: 8.5/10.** |
+| [`PATH_TO_10.md`](./PATH_TO_10.md) | Concrete, build-ready upgrades that take the plan from 8.5 to 10/10 (pricing, retrieval/RAG, AI evals, GTM). |
 
 ## The plan in one paragraph
 
@@ -22,5 +23,5 @@ CRM dashboard, and protected by usage-based subscriptions. Three more agents
 public-key + domain-validated widget APIs, usage metering from day one, and a
 5–10 business pilot.
 
-See [`ANALYSIS.md`](./ANALYSIS.md) for the full review, the unit-economics math,
-and the shortest path from 8.5 to 10/10.
+See [`ANALYSIS.md`](./ANALYSIS.md) for the full review and the unit-economics math, and
+[`PATH_TO_10.md`](./PATH_TO_10.md) for the concrete upgrades that take it to 10/10.
