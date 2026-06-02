@@ -11,6 +11,7 @@ installs one embeddable widget that runs the right AI agent for the job.
 | File | Description |
 |---|---|
 | [`CRECY_AI_MASTER_PLAN_v1.1.md`](./CRECY_AI_MASTER_PLAN_v1.1.md) | **The build-of-record.** Full master plan with every upgrade folded in as defined decisions — retrieval/RAG pipeline, unit economics, eval harness, lead scoring, notifications, compliance, and go-to-market. |
+| [`PROGRESS.md`](./PROGRESS.md) | **Living build tracker** — checkboxes for every phase (PR-0 → PR-10) and acceptance criterion. Tick off as work lands. |
 | [`Crecy_AI_Master_Product_and_MVP_Plan.pdf`](./Crecy_AI_Master_Product_and_MVP_Plan.pdf) | Original v1.0 plan (source document). |
 | [`ANALYSIS.md`](./ANALYSIS.md) | Independent review & scorecard of v1.0, benchmarked against the 2026 market. **Verdict: 8.5/10.** |
 | [`PATH_TO_10.md`](./PATH_TO_10.md) | The upgrades that took v1.0 → v1.1, with rationale and sources (pricing, retrieval/RAG, AI evals, GTM). |
