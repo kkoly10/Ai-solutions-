@@ -1,0 +1,5 @@
+# Build artifacts / extracted text
+extracted.txt
+*.log
+__pycache__/
+.DS_Store
