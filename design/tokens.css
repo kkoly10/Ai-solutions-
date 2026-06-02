@@ -1,0 +1,74 @@
+/**
+ * Crecy AI — Design Tokens as CSS variables.
+ *
+ * Primary purpose: the embeddable widget. The widget renders inside a Shadow DOM so
+ * host-site styles can never leak in (and ours never leak out). These variables live on
+ * the shadow root's :host. The owner's configured `theme_color` overrides --crecy-accent
+ * at runtime; everything else stays neutral so the widget blends into any site.
+ *
+ * The dashboard uses tailwind.config.js (same values) — this file is the source of truth
+ * for surfaces that don't run Tailwind.
+ */
+
+:host,
+:root {
+  /* Warm-neutral canvas */
+  --crecy-sand-50:  #FAF8F4;
+  --crecy-sand-100: #F4F1EA;
+  --crecy-sand-200: #ECE7DD;
+  --crecy-sand-300: #DED7C9;
+  --crecy-sand-600: #6F665A;
+  --crecy-sand-700: #4A4339;
+  --crecy-sand-900: #1B1813;
+
+  /* Bold accent — emerald. --crecy-accent is owner-overridable at runtime. */
+  --crecy-accent:        #059669; /* brand-600, default */
+  --crecy-accent-hover:  #047857; /* brand-700 */
+  --crecy-accent-soft:   #ECFDF5; /* brand-50  */
+  --crecy-accent-ring:   #10B981; /* brand-500 */
+  --crecy-on-accent:     #FFFFFF;
+
+  /* Semantic */
+  --crecy-warning: #D97706;
+  --crecy-danger:  #DC2626;
+
+  /* Surfaces & text */
+  --crecy-canvas:      #FAF8F4;
+  --crecy-surface:     #FFFFFF;
+  --crecy-text:        #4A4339;
+  --crecy-text-strong: #1B1813;
+  --crecy-text-muted:  #6F665A;
+  --crecy-border:      #DED7C9;
+
+  /* Lead-score chips (maps to plan §15: hot / warm / cool) */
+  --crecy-lead-hot-fg:  #047857;  --crecy-lead-hot-bg:  #ECFDF5;
+  --crecy-lead-warm-fg: #B45309;  --crecy-lead-warm-bg: #FFFBEB;
+  --crecy-lead-cool-fg: #6F665A;  --crecy-lead-cool-bg: #F4F1EA;
+
+  /* Radius (rounded) */
+  --crecy-radius:      12px;
+  --crecy-radius-lg:   16px;
+  --crecy-radius-2xl:  24px;
+  --crecy-radius-full: 9999px;
+
+  /* Elevation (warm-tinted, soft) */
+  --crecy-shadow-sm: 0 2px 8px rgba(28, 24, 19, 0.06);
+  --crecy-shadow-md: 0 6px 20px rgba(28, 24, 19, 0.08);
+  --crecy-shadow-widget: 0 12px 48px rgba(28, 24, 19, 0.18);
+
+  /* Type */
+  --crecy-font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --crecy-font-display: 'Fraunces', Georgia, serif;
+
+  /* Motion (respect reduced-motion below) */
+  --crecy-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --crecy-duration: 180ms;
+
+  /* Widget geometry */
+  --crecy-launcher-size: 60px;
+  --crecy-panel-width: 384px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host, :root { --crecy-duration: 0ms; }
+}
