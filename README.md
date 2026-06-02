@@ -15,6 +15,7 @@ installs one embeddable widget that runs the right AI agent for the job.
 | [`Crecy_AI_Master_Product_and_MVP_Plan.pdf`](./Crecy_AI_Master_Product_and_MVP_Plan.pdf) | Original v1.0 plan (source document). |
 | [`ANALYSIS.md`](./ANALYSIS.md) | Independent review & scorecard of v1.0, benchmarked against the 2026 market. **Verdict: 8.5/10.** |
 | [`PATH_TO_10.md`](./PATH_TO_10.md) | The upgrades that took v1.0 → v1.1, with rationale and sources (pricing, retrieval/RAG, AI evals, GTM). |
+| [`INTERNATIONAL_EXPANSION.md`](./INTERNATIONAL_EXPANSION.md) | Cited research ranking 12 emerging markets on payments + SaaS-operation law for a foreign vendor. **Lead market: UAE**, with a deep go/no-go dossier. |
 | [`design/`](./design/) | Design system — [`DESIGN_SYSTEM.md`](./design/DESIGN_SYSTEM.md) (theme, color, type, components, widget rules), [`tailwind.config.js`](./design/tailwind.config.js) (dashboard tokens), [`tokens.css`](./design/tokens.css) (widget CSS variables). Theme: trustworthy & professional, warm-neutral canvas + emerald accent, light/spacious/rounded. |
 
 ## The plan in one paragraph

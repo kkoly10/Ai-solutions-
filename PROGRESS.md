@@ -118,6 +118,19 @@ Acceptance Criteria (§23), and Final Build Checklist (§24).
 
 ---
 
+## International expansion (OPTIONAL — post-pilot, do not start before PR-1…PR-9)
+
+Research & ranking complete — see [`INTERNATIONAL_EXPANSION.md`](./INTERNATIONAL_EXPANSION.md).
+**Lead market: UAE.** Keep these as cheap architectural options now; execute only after the domestic pilot works.
+- [x] Market research: payments + SaaS-operation law across 12 markets, ranked
+- [ ] Payments abstraction (MoR adapter: Paddle/dLocal + per-market processor; don't hard-wire Stripe)
+- [ ] WhatsApp Business Cloud API channel (primary channel internationally)
+- [ ] i18n + RTL (Arabic-first) language support
+- [ ] Arabic-first model tier via `model_provider`/`model_name` (Jais/Falcon-H1)
+- [ ] Per-market tax/data config (VAT rate, B2B-reverse-charge flag, retention/representative) as data
+- [ ] Phase 0 validation via Merchant-of-Record (no entity) in 2–3 target markets
+- [ ] UAE free-zone entity + bank account + Stripe/local rails (see UAE checklist in the appendix)
+
 ## Pilot-ready gate
 
 Per plan §22, **pilot-ready = PR-1…PR-9 complete with eval SLOs green.** Then:
