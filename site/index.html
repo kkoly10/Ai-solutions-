@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Crecy AI — One widget. Six AI business solutions.</title>
+<meta name="description" content="Capture more leads, answer customers faster, and create quotes — from one simple widget on your website. Built for small service businesses." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  /* ===== Crecy AI design tokens (mirrors design/tokens.css) ===== */
+  :root {
+    --sand-50:#FAF8F4; --sand-100:#F4F1EA; --sand-200:#ECE7DD; --sand-300:#DED7C9;
+    --sand-400:#C3BAAA; --sand-500:#9C9180; --sand-600:#6F665A; --sand-700:#4A4339;
+    --sand-800:#2E2922; --sand-900:#1B1813;
+    --brand-50:#ECFDF5; --brand-100:#D1FAE5; --brand-500:#10B981; --brand-600:#059669;
+    --brand-700:#047857; --brand-900:#064E3B;
+    --warning-50:#FFFBEB; --warning-700:#B45309;
+    --surface:#FFFFFF;
+    --radius:12px; --radius-lg:16px; --radius-2xl:24px; --radius-full:9999px;
+    --shadow-sm:0 2px 8px rgba(28,24,19,.06);
+    --shadow-md:0 6px 20px rgba(28,24,19,.08);
+    --shadow-lg:0 16px 40px rgba(28,24,19,.10);
+    --shadow-widget:0 12px 48px rgba(28,24,19,.18);
+    --font-sans:'Inter',ui-sans-serif,system-ui,sans-serif;
+    --font-display:'Fraunces',Georgia,serif;
+    --ease:cubic-bezier(.2,.8,.2,1); --dur:180ms;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family:var(--font-sans); color:var(--sand-700); background:var(--sand-50);
+    line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3 { color:var(--sand-900); line-height:1.15; letter-spacing:-.01em; }
+  a { color:var(--brand-700); text-decoration:none; }
+  .wrap { max-width:72rem; margin:0 auto; padding:0 24px; }
+  .display { font-family:var(--font-display); font-weight:600; }
+  .eyebrow { font-size:13px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--brand-700); }
+  .muted { color:var(--sand-600); }
+
+  /* buttons */
+  .btn { display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 20px;
+    border-radius:var(--radius); font-weight:500; font-size:15px; cursor:pointer;
+    transition:background var(--dur) var(--ease), transform var(--dur) var(--ease); border:1px solid transparent; }
+  .btn:focus-visible { outline:2px solid var(--brand-500); outline-offset:2px; }
+  .btn-primary { background:var(--brand-600); color:#fff; }
+  .btn-primary:hover { background:var(--brand-700); transform:translateY(-1px); }
+  .btn-ghost { background:var(--surface); color:var(--sand-800); border-color:var(--sand-300); }
+  .btn-ghost:hover { background:var(--sand-100); }
+  .btn-sm { height:38px; padding:0 16px; font-size:14px; }
+
+  /* nav */
+  header.nav { position:sticky; top:0; z-index:50; background:rgba(250,248,244,.85);
+    backdrop-filter:blur(10px); border-bottom:1px solid var(--sand-200); }
+  .nav-inner { display:flex; align-items:center; justify-content:space-between; height:64px; }
+  .logo { display:flex; align-items:center; gap:9px; font-family:var(--font-display); font-weight:600;
+    font-size:20px; color:var(--sand-900); }
+  .logo-dot { width:11px; height:11px; border-radius:var(--radius-full); background:var(--brand-600);
+    box-shadow:0 0 0 4px var(--brand-100); }
+  .nav-links { display:flex; align-items:center; gap:28px; }
+  .nav-links a.link { color:var(--sand-700); font-size:15px; font-weight:500; }
+  .nav-links a.link:hover { color:var(--sand-900); }
+  .nav-cta { display:flex; align-items:center; gap:12px; }
+  @media (max-width:860px){ .nav-links .link, .nav-cta .signin { display:none; } }
+
+  /* hero */
+  .hero { padding:72px 0 64px; }
+  .hero-grid { display:grid; grid-template-columns:1.05fr 1fr; gap:56px; align-items:center; }
+  .hero h1 { font-family:var(--font-display); font-weight:600; font-size:clamp(34px,5vw,56px); }
+  .hero h1 em { font-style:italic; color:var(--brand-700); }
+  .hero p.sub { font-size:19px; margin:22px 0 30px; max-width:34ch; }
+  .hero-cta { display:flex; gap:14px; flex-wrap:wrap; }
+  .trustline { margin-top:22px; font-size:14px; color:var(--sand-600); display:flex; align-items:center; gap:8px; }
+  .stars { color:#E0A92E; letter-spacing:1px; }
+  @media (max-width:860px){ .hero-grid { grid-template-columns:1fr; gap:40px; } .hero p.sub{max-width:none;} }
+
+  /* dashboard mock */
+  .mock { background:var(--surface); border-radius:var(--radius-2xl); box-shadow:var(--shadow-lg);
+    border:1px solid var(--sand-200); overflow:hidden; position:relative; }
+  .mock-bar { display:flex; align-items:center; gap:7px; padding:13px 16px; border-bottom:1px solid var(--sand-200); background:var(--sand-50); }
+  .mock-bar i { width:11px; height:11px; border-radius:50%; background:var(--sand-300); display:block; }
+  .mock-bar .addr { margin-left:12px; font-size:12px; color:var(--sand-500); }
+  .mock-body { padding:20px; }
+  .mock-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
+  .mock-head h4 { font-size:15px; color:var(--sand-900); }
+  .mock-head .pill { font-size:12px; font-weight:600; color:var(--brand-700); background:var(--brand-50); padding:4px 10px; border-radius:var(--radius-full); }
+  .lead-row { display:flex; align-items:center; gap:12px; padding:12px; border-radius:var(--radius); }
+  .lead-row + .lead-row { margin-top:6px; }
+  .lead-row:hover { background:var(--sand-50); }
+  .avatar { width:38px; height:38px; border-radius:var(--radius-full); display:grid; place-items:center;
+    font-weight:600; font-size:14px; color:var(--brand-700); background:var(--brand-50); flex:none; }
+  .lead-meta { flex:1; min-width:0; }
+  .lead-meta .nm { font-weight:600; color:var(--sand-900); font-size:14px; }
+  .lead-meta .sv { font-size:12.5px; color:var(--sand-600); }
+  .chip { font-size:11px; font-weight:600; padding:3px 9px; border-radius:var(--radius-full); white-space:nowrap; }
+  .chip.hot { color:var(--brand-700); background:var(--brand-50); }
+  .chip.warm { color:var(--warning-700); background:var(--warning-50); }
+  .chip.cool { color:var(--sand-600); background:var(--sand-100); }
+  .time { font-size:11.5px; color:var(--sand-400); width:42px; text-align:right; }
+  .toast { position:absolute; right:18px; bottom:18px; display:flex; align-items:center; gap:9px;
+    background:var(--brand-600); color:#fff; padding:11px 15px; border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-md); font-size:13.5px; font-weight:500;
+    animation:rise 3.4s var(--ease) infinite; }
+  .toast .tick { width:18px; height:18px; border-radius:50%; background:rgba(255,255,255,.22); display:grid; place-items:center; font-size:11px; }
+  @keyframes rise { 0%,12%{opacity:0; transform:translateY(10px);} 22%,80%{opacity:1; transform:translateY(0);} 92%,100%{opacity:0; transform:translateY(10px);} }
+
+  /* proof band */
+  .proof { border-top:1px solid var(--sand-200); border-bottom:1px solid var(--sand-200); background:var(--sand-100); padding:26px 0; }
+  .proof-inner { display:flex; align-items:center; justify-content:center; gap:40px; flex-wrap:wrap; text-align:center; }
+  .proof .stat b { font-family:var(--font-display); font-size:26px; color:var(--sand-900); display:block; }
+  .proof .stat span { font-size:13px; color:var(--sand-600); }
+
+  /* sections */
+  section.block { padding:84px 0; }
+  .sec-head { text-align:center; max-width:62ch; margin:0 auto 48px; }
+  .sec-head h2 { font-family:var(--font-display); font-size:clamp(28px,3.6vw,40px); font-weight:600; }
+  .sec-head p { font-size:17px; margin-top:14px; }
+
+  /* bento agents */
+  .bento { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  @media (max-width:860px){ .bento { grid-template-columns:1fr; } }
+  .card { background:var(--surface); border:1px solid var(--sand-200); border-radius:var(--radius-2xl);
+    padding:26px; box-shadow:var(--shadow-sm); transition:transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
+  .card:hover { transform:translateY(-3px); box-shadow:var(--shadow-md); }
+  .card .ico { width:44px; height:44px; border-radius:var(--radius); background:var(--brand-50);
+    display:grid; place-items:center; margin-bottom:16px; }
+  .card .ico svg { width:22px; height:22px; stroke:var(--brand-700); fill:none; stroke-width:1.8; }
+  .card h3 { font-size:18px; margin-bottom:7px; }
+  .card .quote { font-size:13px; color:var(--brand-700); font-weight:600; margin-bottom:6px; }
+  .card p { font-size:14.5px; color:var(--sand-600); }
+  .card .soon { display:inline-block; margin-top:12px; font-size:11px; font-weight:600; color:var(--sand-500);
+    background:var(--sand-100); padding:3px 9px; border-radius:var(--radius-full); }
+
+  /* steps */
+  .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  @media (max-width:860px){ .steps { grid-template-columns:1fr; } }
+  .step .num { font-family:var(--font-display); font-size:15px; font-weight:600; color:#fff; background:var(--brand-600);
+    width:34px; height:34px; border-radius:var(--radius-full); display:grid; place-items:center; margin-bottom:14px; }
+  .step h3 { font-size:18px; margin-bottom:6px; }
+  .step p { color:var(--sand-600); font-size:15px; }
+
+  /* pricing */
+  .price-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; align-items:start; }
+  @media (max-width:980px){ .price-grid { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .price-grid { grid-template-columns:1fr; } }
+  .plan { background:var(--surface); border:1px solid var(--sand-200); border-radius:var(--radius-2xl); padding:26px; box-shadow:var(--shadow-sm); }
+  .plan.feat { border-color:var(--brand-600); box-shadow:var(--shadow-md); position:relative; }
+  .plan.feat .tag { position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--brand-600);
+    color:#fff; font-size:11px; font-weight:600; padding:4px 12px; border-radius:var(--radius-full); }
+  .plan h3 { font-size:16px; }
+  .plan .amt { font-family:var(--font-display); font-size:38px; font-weight:600; color:var(--sand-900); margin:8px 0 2px; }
+  .plan .amt span { font-size:15px; font-family:var(--font-sans); color:var(--sand-500); font-weight:400; }
+  .plan ul { list-style:none; margin:18px 0 22px; }
+  .plan li { font-size:14px; padding:7px 0 7px 26px; position:relative; color:var(--sand-700); }
+  .plan li::before { content:"✓"; position:absolute; left:0; color:var(--brand-600); font-weight:700; }
+  .plan .btn { width:100%; justify-content:center; }
+
+  /* cta */
+  .cta { background:var(--sand-900); border-radius:var(--radius-2xl); padding:56px; text-align:center; color:#fff; }
+  .cta h2 { color:#fff; font-family:var(--font-display); font-size:clamp(26px,3.4vw,38px); font-weight:600; }
+  .cta p { color:var(--sand-300); margin:14px auto 28px; max-width:48ch; }
+
+  /* footer */
+  footer { padding:48px 0 60px; border-top:1px solid var(--sand-200); margin-top:84px; }
+  .foot-inner { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+  .powered { display:inline-flex; align-items:center; gap:7px; font-size:13px; color:var(--sand-500);
+    border:1px solid var(--sand-200); background:var(--surface); padding:7px 13px; border-radius:var(--radius-full); }
+  .powered b { color:var(--sand-700); font-weight:600; }
+
+  /* floating widget mock */
+  .widget { position:fixed; right:22px; bottom:22px; z-index:60; display:flex; flex-direction:column; align-items:flex-end; gap:14px; }
+  .widget-panel { width:300px; background:var(--surface); border-radius:var(--radius-2xl); box-shadow:var(--shadow-widget);
+    border:1px solid var(--sand-200); overflow:hidden; }
+  .wp-head { background:var(--brand-600); color:#fff; padding:14px 16px; display:flex; align-items:center; gap:10px; }
+  .wp-head .dot2 { width:9px; height:9px; border-radius:50%; background:#fff; box-shadow:0 0 0 3px rgba(255,255,255,.25); }
+  .wp-head .nm { font-weight:600; font-size:14px; }
+  .wp-head .st { font-size:11px; opacity:.85; }
+  .wp-body { padding:16px; background:var(--sand-50); }
+  .bubble { font-size:13px; padding:10px 13px; border-radius:var(--radius-lg); max-width:85%; margin-bottom:8px; }
+  .bubble.bot { background:var(--surface); border:1px solid var(--sand-200); color:var(--sand-800); border-bottom-left-radius:5px; }
+  .bubble.me { background:var(--brand-600); color:#fff; margin-left:auto; border-bottom-right-radius:5px; }
+  .wp-foot { font-size:10.5px; color:var(--sand-400); text-align:center; padding:8px; background:var(--sand-50); border-top:1px solid var(--sand-200); }
+  .launcher { width:60px; height:60px; border-radius:var(--radius-full); background:var(--brand-600); box-shadow:var(--shadow-widget);
+    display:grid; place-items:center; cursor:pointer; border:none; }
+  .launcher svg { width:26px; height:26px; stroke:#fff; fill:none; stroke-width:2; }
+  @media (max-width:860px){ .widget-panel { display:none; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <div class="logo"><span class="logo-dot"></span>Crecy AI</div>
+    <nav class="nav-links">
+      <a class="link" href="#agents">Agents</a>
+      <a class="link" href="#how">How it works</a>
+      <a class="link" href="#pricing">Pricing</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="link signin" href="#">Sign in</a>
+      <a class="btn btn-primary btn-sm" href="#pricing">Start free</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">One widget. Six AI business solutions.</span>
+      <h1>Stop losing leads <br>from your <em>website</em>.</h1>
+      <p class="sub">Crecy AI answers your customers, creates quote-ready summaries, and captures every lead — automatically, from one simple widget you install in minutes.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#pricing">Start free — 14 days</a>
+        <a class="btn btn-ghost" href="#how">See how it works</a>
+      </div>
+      <div class="trustline"><span class="stars">★★★★★</span> Loved by cleaning, detailing &amp; home-service owners</div>
+    </div>
+
+    <!-- dashboard mock -->
+    <div class="mock" role="img" aria-label="Crecy AI lead inbox showing new leads captured from a website, scored hot, warm and cool">
+      <div class="mock-bar"><i></i><i></i><i></i><span class="addr">app.crecyai.app/ai/leads</span></div>
+      <div class="mock-body">
+        <div class="mock-head"><h4>New leads</h4><span class="pill">Capture rate 68%</span></div>
+        <div class="lead-row">
+          <div class="avatar">SM</div>
+          <div class="lead-meta"><div class="nm">Sarah M.</div><div class="sv">Move-out cleaning · 3 bed · this week</div></div>
+          <span class="chip hot">Hot · 86</span><span class="time">2m</span>
+        </div>
+        <div class="lead-row">
+          <div class="avatar">DR</div>
+          <div class="lead-meta"><div class="nm">Devon R.</div><div class="sv">Full detail · SUV · weekend</div></div>
+          <span class="chip warm">Warm · 54</span><span class="time">11m</span>
+        </div>
+        <div class="lead-row">
+          <div class="avatar">JL</div>
+          <div class="lead-meta"><div class="nm">Jamie L.</div><div class="sv">Asked about pricing · browsing</div></div>
+          <span class="chip cool">Cool · 31</span><span class="time">1h</span>
+        </div>
+      </div>
+      <div class="toast"><span class="tick">✓</span> New lead captured</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF BAND -->
+<div class="proof">
+  <div class="wrap proof-inner">
+    <div class="stat"><b>1,200+</b><span>leads captured this month</span></div>
+    <div class="stat"><b>2.4×</b><span>vs. a static contact form</span></div>
+    <div class="stat"><b>&lt; 1%</b><span>hallucination rate, measured</span></div>
+    <div class="stat"><b>5 min</b><span>to install on your site</span></div>
+  </div>
+</div>
+
+<!-- AGENTS -->
+<section class="block" id="agents">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Choose the problem to solve</span>
+      <h2>Six AI agents. One widget.</h2>
+      <p>Pick what your business needs today. Each agent answers only from <em>your</em> business knowledge — no made-up prices, no wrong policies.</p>
+    </div>
+    <div class="bento">
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 11l18-8-8 18-2-8-8-2z"/></svg></div>
+        <div class="quote">“I’m missing leads.”</div>
+        <h3>Lead Capture</h3>
+        <p>Greets visitors, answers their question, and collects name, contact, need &amp; urgency — even when they open with “how much?”.</p>
+      </div>
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div class="quote">“I answer the same questions all day.”</div>
+        <h3>Customer Service</h3>
+        <p>Handles hours, services, area, and policies from your knowledge base. Escalates to you instead of guessing.</p>
+      </div>
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <div class="quote">“Quoting takes too long.”</div>
+        <h3>Quote Assistant</h3>
+        <p>Asks the right industry questions and builds a structured, quote-ready summary waiting in your inbox.</p>
+      </div>
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+        <div class="quote">“Customers ghost me.”</div>
+        <h3>Follow-Up</h3>
+        <p>Drafts follow-up messages and flags new or stale leads so none slip through.</p>
+        <span class="soon">Light v1</span>
+      </div>
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></div>
+        <div class="quote">“Paperwork slows me down.”</div>
+        <h3>Paperwork</h3>
+        <p>Turns messy messages into clean, structured notes you can act on.</p>
+        <span class="soon">Light v1</span>
+      </div>
+      <div class="card">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-6"/></svg></div>
+        <div class="quote">“I want more sales.”</div>
+        <h3>Sales Assistant</h3>
+        <p>Recommends the right service, handles simple objections, and guides visitors to book or request a quote.</p>
+        <span class="soon">Light v1</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="block" id="how" style="background:var(--sand-100); border-top:1px solid var(--sand-200); border-bottom:1px solid var(--sand-200);">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Live in an afternoon</span>
+      <h2>Three steps to your AI business desk</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><h3>Choose your problem</h3><p>Pick the outcome you want — more leads, faster answers, or quicker quotes — and select your industry template.</p></div>
+      <div class="step"><div class="num">2</div><h3>Add your knowledge</h3><p>Drop in your services, prices, hours, and policies. The AI answers only from this — so it’s never wrong.</p></div>
+      <div class="step"><div class="num">3</div><h3>Install one widget</h3><p>Paste a single line of code on your site. Leads start landing in your dashboard right away.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="block" id="pricing">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Simple, usage-based pricing</span>
+      <h2>Plans that fit a small business</h2>
+      <p>Start free. No unlimited-AI surprises — every plan includes a generous conversation bundle.</p>
+    </div>
+    <div class="price-grid">
+      <div class="plan">
+        <h3>Free Trial</h3>
+        <div class="amt">$0<span></span></div>
+        <p class="muted" style="font-size:13px;">14 days to try it out</p>
+        <ul><li>1 agent</li><li>50 conversations</li><li>Lead capture</li><li>Crecy AI branding</li></ul>
+        <a class="btn btn-ghost" href="#">Start free</a>
+      </div>
+      <div class="plan">
+        <h3>Starter</h3>
+        <div class="amt">$29<span>/mo</span></div>
+        <p class="muted" style="font-size:13px;">For getting your first leads</p>
+        <ul><li>1 agent &amp; widget</li><li>150 conversations/mo</li><li>FAQ answers &amp; lead capture</li><li>Email lead alerts</li></ul>
+        <a class="btn btn-ghost" href="#">Choose Starter</a>
+      </div>
+      <div class="plan feat">
+        <span class="tag">Most popular</span>
+        <h3>Growth</h3>
+        <div class="amt">$79<span>/mo</span></div>
+        <p class="muted" style="font-size:13px;">For busy quote-driven shops</p>
+        <ul><li>3 agents</li><li>Quote assistant + lead inbox</li><li>500 conversations/mo</li><li>Custom branding &amp; SMS alerts</li></ul>
+        <a class="btn btn-primary" href="#">Choose Growth</a>
+      </div>
+      <div class="plan">
+        <h3>Pro</h3>
+        <div class="amt">$149<span>/mo</span></div>
+        <p class="muted" style="font-size:13px;">All six agents, full power</p>
+        <ul><li>All 6 modes + analytics</li><li>Follow-up drafts &amp; team access</li><li>1,000 conversations/mo</li><li>Priority support</li></ul>
+        <a class="btn btn-ghost" href="#">Choose Pro</a>
+      </div>
+    </div>
+    <p class="muted" style="text-align:center; margin-top:22px; font-size:14px;">Need multiple client sites or white-label? <a href="#">Talk to us about Agency →</a></p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="wrap">
+  <div class="cta">
+    <h2>Turn your website into your best salesperson.</h2>
+    <p>Install Crecy AI in minutes and never lose another lead to a missed message.</p>
+    <a class="btn btn-primary" href="#" style="background:var(--brand-500);">Start your free 14-day trial</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap foot-inner">
+    <div class="logo" style="font-size:18px;"><span class="logo-dot"></span>Crecy AI</div>
+    <span class="powered">⚡ Powered by <b>Crecy&nbsp;AI</b></span>
+    <span class="muted" style="font-size:13px;">© 2026 Crecy AI · crecyai.app</span>
+  </div>
+</footer>
+
+<!-- FLOATING WIDGET MOCK -->
+<div class="widget" aria-hidden="true">
+  <div class="widget-panel">
+    <div class="wp-head"><span class="dot2"></span><div><div class="nm">Sparkle Clean Co.</div><div class="st">Typically replies instantly</div></div></div>
+    <div class="wp-body">
+      <div class="bubble bot">Hi! 👋 How can we help with your cleaning today?</div>
+      <div class="bubble me">How much for a move-out clean?</div>
+      <div class="bubble bot">Happy to help! How many bedrooms and bathrooms?</div>
+    </div>
+    <div class="wp-foot">⚡ Powered by Crecy AI</div>
+  </div>
+  <button class="launcher" aria-label="Open chat">
+    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </button>
+</div>
+
+</body>
+</html>
