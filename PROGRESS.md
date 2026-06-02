@@ -1,10 +1,12 @@
 # Crecy AI — Build Progress Tracker
 
-Living checklist for executing [`CRECY_AI_MASTER_PLAN_v1.1.md`](./CRECY_AI_MASTER_PLAN_v1.1.md).
-Tick boxes as work lands on `main`. Each phase mirrors the plan's Build Roadmap (§22),
-Acceptance Criteria (§23), and Final Build Checklist (§24).
+Living checklist for executing the plan. **Strategy: INTERNATIONAL-FIRST** (see
+[`INTERNATIONAL_FIRST_BUILD.md`](./INTERNATIONAL_FIRST_BUILD.md)) — WhatsApp-first, Merchant-of-Record
+payments, multilingual, with the US deprioritized to a later option. Core spec:
+[`CRECY_AI_MASTER_PLAN_v1.1.md`](./CRECY_AI_MASTER_PLAN_v1.1.md); market research:
+[`INTERNATIONAL_EXPANSION.md`](./INTERNATIONAL_EXPANSION.md).
 
-**Legend:** `[x]` done · `[~]` in progress / partial · `[ ]` not started
+**Legend:** `[x]` done · `[~]` partial · `[ ]` not started
 **Last updated:** 2026-06-02
 
 ## Status at a glance
@@ -13,128 +15,111 @@ Acceptance Criteria (§23), and Final Build Checklist (§24).
 |---|---|:--:|
 | PR-0 | Master plan & spec | ✅ |
 | — | Design system | ✅ |
-| — | Marketing landing page (static) | 🟡 visual only |
-| PR-1 | Database + retrieval foundation | ⬜ |
-| PR-2 | Business onboarding | ⬜ |
-| PR-3 | Knowledge setup + embeddings | ⬜ |
-| PR-4 | AI preview chat (grounded retrieval) | ⬜ |
-| PR-5 | Embeddable widget | ⬜ |
+| — | International research + build strategy | ✅ |
+| — | Marketing landing page (static, US-style) | 🟡 to be localized |
+| PR-1 | Database + retrieval foundation (+ locale/channel) | ⬜ |
+| PR-2 | Onboarding (+ market/language/currency) | ⬜ |
+| PR-3 | Knowledge + multilingual embeddings | ⬜ |
+| PR-4 | AI engine + grounded retrieval (multilingual) | ⬜ |
+| PR-5 | **WhatsApp channel (PRIMARY)** | ⬜ |
+| PR-5b | Web widget (secondary) | 🟡 designed only |
 | PR-6 | Lead inbox / mini-CRM | ⬜ |
-| PR-7 | Quote templates | ⬜ |
-| PR-8 | Billing & limits | ⬜ |
-| PR-9 | Admin + eval harness | ⬜ |
-| PR-10 | Marketing site (wired) | 🟡 |
+| PR-7 | Localized quote templates | ⬜ |
+| PR-8 | Billing via Merchant-of-Record | ⬜ |
+| PR-9 | Admin + per-language eval harness | ⬜ |
+| PR-10 | Localized marketing + click-to-WhatsApp | 🟡 |
 
-**Overall: ~2 of 11 build phases complete. Spec + design + a static brochure exist; the product (DB, AI, widget, dashboard, billing) is not built yet.**
+**Overall: spec + design + international strategy done; product not built. First locale/GTM target pending one input (your base + languages).**
 
 ---
 
 ## Foundations (done)
 
 ### PR-0 — Master plan & spec ✅
-- [x] Problem framing, six agents, MVP boundary
-- [x] Retrieval/RAG pipeline defined (§10)
-- [x] Unit economics & margin model (§13)
-- [x] Lead scoring rubric (§15)
-- [x] AI eval harness + SLOs (§16)
-- [x] Schema, API contracts, security, compliance
-- [x] GTM / pilot plan (§21)
+- [x] Problem framing, six agents, MVP boundary, retrieval/economics/evals/lead-scoring/GTM
 
 ### Design system ✅
-- [x] Theme: warm-neutral canvas + emerald accent, light/spacious/rounded
-- [x] `design/DESIGN_SYSTEM.md`, `design/tailwind.config.js`, `design/tokens.css`
-- [x] Lead-score colors mapped to plan §15
+- [x] Warm-neutral + emerald theme; `design/` tokens + Tailwind config
+- [ ] RTL variant (for Arabic markets) — fast-follow when a GCC market is chosen
+
+### International research + build strategy ✅
+- [x] 12-market payments + SaaS-law ranking (UAE #1; Indonesia/PH/Mexico tier)
+- [x] Channel-agnostic core + adapter architecture defined
+- [x] WhatsApp-first, MoR-first, i18n/RTL approach
+
+### Decision pending
+- [ ] **First locale + GTM beachhead** — needs: where you're based + languages you can support. Default if unset: English+Spanish, Mexico-first, Arabic/UAE fast-follow.
 
 ---
 
-## Build phases (to do)
+## Build phases (international-first)
 
-> Stack assumption (to confirm before PR-1): **Next.js + Supabase (Postgres + pgvector + RLS)**.
+> Stack assumption (confirm before PR-1): **Next.js + Supabase (Postgres + pgvector + RLS)**.
 
 ### PR-1 — Database + retrieval foundation ⬜  *(critical path)*
-- [ ] 13 tables created (`ai_businesses` … `ai_eval_runs`) per §11
-- [ ] RLS policies: owner / public-widget / admin / service role
-- [ ] `pgvector` enabled; `embedding` + `tsv` columns on `ai_agent_knowledge`
-- [ ] HNSW (vector) + GIN (full-text) indexes
-- [ ] Usage + entitlements tables (`included_conversations`, `overage_rate_cents`)
-- [ ] Seed migration runs cleanly on a fresh Supabase project
+- [ ] 13 tables + RLS (owner / public / admin / service)
+- [ ] `pgvector` + `tsv` on `ai_agent_knowledge`; HNSW + GIN indexes
+- [ ] **`markets` config table** (language, currency, VAT rate, `b2b_reverse_charge`, data rules, default channel, model tier)
+- [ ] **Channel + WhatsApp identifiers** on `ai_conversations` (channel, wa_phone_number_id, wa_contact)
+- [ ] Usage + entitlements (incl. WhatsApp-fee + MoR-fee cost fields)
 
-### PR-2 — Business onboarding ⬜
-- [ ] Create business profile
-- [ ] Choose problem / industry template
-- [ ] Create first agent (mode, tone, greeting)
+### PR-2 — Onboarding ⬜
+- [ ] Create business; choose **market + language + currency**
+- [ ] Choose problem / industry template (localized); create first agent
 
-### PR-3 — Knowledge setup + embeddings ⬜
-- [ ] Add services, FAQs, policies, pricing notes, hours, service area
-- [ ] Embedding **and** `tsv` generated on every knowledge write
+### PR-3 — Knowledge + multilingual embeddings ⬜
+- [ ] Add knowledge; **multilingual embedding** + `tsv` on write
 
-### PR-4 — AI preview chat (grounded retrieval) ⬜  *(critical path)*
-- [ ] Engine functions (`detectIntent`, `extractLeadFields`, …) with model tiering (§9)
-- [ ] Hybrid search (pgvector + tsvector) → rerank top-20→5
-- [ ] "Answer + Source" grounding; `cited_knowledge_ids` stored
-- [ ] No-answer threshold → handoff (`RETRIEVAL_MIN_SCORE`)
-- [ ] Prompt-injection defense (visitor input = data, not instructions)
-- [ ] Owner can test agent in dashboard; usage logged
+### PR-4 — AI engine + grounded retrieval ⬜  *(critical path)*
+- [ ] Engine functions + model tiering; **multilingual replies**; Arabic-first tier option
+- [ ] Hybrid search → rerank → grounded "Answer + Source"; `RETRIEVAL_MIN_SCORE` → handoff
+- [ ] Prompt-injection defense; **per-language eval set**
 
-### PR-5 — Embeddable widget ⬜
-- [ ] Real `widget.js` loads async via one script tag
-- [ ] Shadow DOM + `tokens.css`; owner `theme_color` override
-- [ ] `GET /api/ai/widget/config` validates domain + public key
-- [ ] `POST /api/ai/widget/message` runs grounded AI
-- [ ] Restores conversation after page reload
-- [ ] Falls back to contact form on error / usage limit
+### PR-5 — WhatsApp channel (PRIMARY) ⬜  *(the international MVP surface)*
+- [ ] WhatsApp Business Cloud API webhook (inbound) + send (outbound)
+- [ ] Phone-number provisioning + business verification
+- [ ] Opt-in handling, **template-message approval**, 24-hour service-window logic
+- [ ] Map WhatsApp conversation ↔ core conversation/lead
+- [ ] Fallback behavior on usage limit / error
+
+### PR-5b — Web widget (secondary) 🟡
+- [x] Visual design + tokens (`design/`) and static mock
+- [ ] Real `widget.js`, shadow DOM, config + message APIs (reuse core)
 
 ### PR-6 — Lead inbox / mini-CRM ⬜
-- [ ] Lead saved with transcript, summary, contact, need, location, urgency
-- [ ] Lead score + `score_breakdown` (rubric §15); Hot/Warm/Cool chips
-- [ ] Lead detail: transcript, structured intake, notes, status, follow-up draft
-- [ ] Owner notification on new lead (Resend email; Twilio SMS on Growth+)
+- [ ] Lead saved w/ transcript, summary, contact, need, urgency; score + breakdown (§15)
+- [ ] Lead detail (transcript, intake, notes, status, follow-up draft, cited knowledge)
+- [ ] Owner notification (channel-appropriate)
 
-### PR-7 — Quote templates ⬜
-- [ ] ≥6 industry templates with structured intake (cleaning, home services, detailing, beauty, rentals, IT, car rental)
-- [ ] Quote Assistant builds structured quote-ready summary
-- [ ] No exact pricing unless pricing rules configured
+### PR-7 — Localized quote templates ⬜
+- [ ] ≥6 industry templates with structured intake, **localized per market**
+- [ ] Structured quote-ready summary; no exact pricing unless rules configured
 
-### PR-8 — Billing & limits ⬜
-- [ ] Stripe subscriptions (Free/Starter/Growth/Pro/Agency)
-- [ ] Included bundle + metered overage at posted rates (§13/§14)
-- [ ] Billable "conversation" enforced (24h / 20-msg / token caps)
-- [ ] Usage-limit → fallback form; past-due → pause AI after grace
+### PR-8 — Billing via Merchant-of-Record ⬜
+- [ ] MoR adapter (Paddle/Lemon Squeezy or dLocal/EBANX); abstracted payment interface
+- [ ] Per-market VAT/pricing (purchasing-power tiers); B2B reverse-charge handling
+- [ ] Included bundle + overage; conversation caps; past-due → pause AI
 
 ### PR-9 — Admin + eval harness ⬜
-- [ ] Admin views: businesses, agents, conversations, leads, usage, errors, abuse
-- [ ] Eval pyramid: citation-validity (every commit) + golden-set regression gate
-- [ ] Published SLOs visible (hallucination <1%, citation 100%, refusal >95%, handoff >90%, p95 <3s)
-- [ ] LLM judge validated against human-labeled set
-- [ ] `/ai/quality` dashboard
+- [ ] Admin views (businesses, agents, conversations, leads, usage, errors, abuse)
+- [ ] Eval pyramid + **per-language** SLOs (hallucination <1%, citation 100%, refusal >95%, handoff >90%, p95 <3s)
+- [ ] Judge validated; `/ai/quality` dashboard
 
-### PR-10 — Marketing site 🟡
-- [x] Problem-based page, six agent cards, pricing, hero, proof band, widget mock
-- [x] Deployed live (Vercel) on the design theme
-- [ ] Real copy + real metrics (replace placeholder stats / testimonials)
-- [ ] Working signup CTA wired to the app
-- [ ] Logo/wordmark, favicon, OG/social-share meta + preview image
-- [ ] Custom domain `crecyai.app` (verify availability first)
+### PR-10 — Localized marketing ⬜
+- [x] Static landing page (US-style) deployed
+- [ ] Localized copy (per beachhead language) + local pricing
+- [ ] **Click-to-WhatsApp** CTA; logo/favicon/OG meta
+- [ ] Custom domain
 
 ---
 
-## International expansion (OPTIONAL — post-pilot, do not start before PR-1…PR-9)
-
-Research & ranking complete — see [`INTERNATIONAL_EXPANSION.md`](./INTERNATIONAL_EXPANSION.md).
-**Lead market: UAE.** Keep these as cheap architectural options now; execute only after the domestic pilot works.
-- [x] Market research: payments + SaaS-operation law across 12 markets, ranked
-- [ ] Payments abstraction (MoR adapter: Paddle/dLocal + per-market processor; don't hard-wire Stripe)
-- [ ] WhatsApp Business Cloud API channel (primary channel internationally)
-- [ ] i18n + RTL (Arabic-first) language support
-- [ ] Arabic-first model tier via `model_provider`/`model_name` (Jais/Falcon-H1)
-- [ ] Per-market tax/data config (VAT rate, B2B-reverse-charge flag, retention/representative) as data
-- [ ] Phase 0 validation via Merchant-of-Record (no entity) in 2–3 target markets
-- [ ] UAE free-zone entity + bank account + Stripe/local rails (see UAE checklist in the appendix)
+## Economics re-model (do alongside PR-8)
+- [ ] Per-market unit cost = LLM + **WhatsApp per-conversation fee** + MoR fee (~5%) vs local-currency price
+- [ ] Purchasing-power-adjusted tiers per beachhead market
 
 ## Pilot-ready gate
-
-Per plan §22, **pilot-ready = PR-1…PR-9 complete with eval SLOs green.** Then:
-- [ ] 5–10 cleaning businesses onboarded (beachhead vertical)
-- [ ] North-Star tracked: businesses with ≥1 captured lead in first 7 days
-- [ ] Success signal: ≥50 conversations, ≥10 qualified leads, ≥2 paying
-- [ ] Margin signal: measured AI cost/customer below plan revenue
+**Pilot-ready = PR-1…PR-9 complete with eval SLOs green (in the beachhead language).** Then:
+- [ ] 5–10 businesses onboarded in the beachhead market (WhatsApp-first)
+- [ ] North-Star: businesses with ≥1 captured lead in first 7 days
+- [ ] Success: ≥50 conversations, ≥10 qualified leads, ≥2 paying (local currency)
+- [ ] Margin: measured cost/customer (incl. WhatsApp + MoR fees) below plan revenue
